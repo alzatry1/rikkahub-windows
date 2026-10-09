@@ -172,7 +172,7 @@ public class ChatVM
         if (chatModel == null) return;
         var providerHit = _ctx.Providers.FindModel(_ctx.Settings.Providers, chatModel.Id)
             ?? throw new InvalidOperationException("Provider not found for model");
-        var (providerSetting, model) = providerHit.Value;
+        var (providerSetting, model) = providerHit;
 
         // build user message
         var userMsg = new UIMessage { Role = MessageRole.User, Pending = false };
