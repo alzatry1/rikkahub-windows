@@ -164,7 +164,8 @@ public class ClaudeProvider : ProviderBase
 
     public static string BuildClaudeBody(ClaudeSetting s, List<UIMessage> messages, TextGenerationParams p)
     {
-        using var writer = new Utf8JsonWriter(new MemoryStream());
+        using var stream = new MemoryStream();
+        using var writer = new Utf8JsonWriter(stream);
         writer.WriteStartObject();
         writer.WriteString("model", p.Model.ModelId);
         writer.WriteNumber("max_tokens", p.MaxTokens ?? 8192);
@@ -280,6 +281,6 @@ public class ClaudeProvider : ProviderBase
         writer.WriteEndArray();
         writer.WriteEndObject();
         writer.Flush();
-        return Encoding.UTF8.GetString(((MemoryStream)writer.Output).ToArray());
+        return Encoding.UTF8.GetString(stream.ToArray());
     }
 }

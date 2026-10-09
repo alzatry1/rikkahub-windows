@@ -100,7 +100,8 @@ public abstract class ProviderBase : IProvider
     {
         using var doc = System.Text.Json.JsonDocument.Parse(baseJson);
         var root = doc.RootElement.Clone();
-        var writer = new System.Text.Json.Utf8JsonWriter(new MemoryStream());
+        using var stream = new MemoryStream();
+        using var writer = new System.Text.Json.Utf8JsonWriter(stream);
         writer.WriteStartObject();
         foreach (var prop in root.EnumerateObject())
             prop.WriteTo(writer);
@@ -111,7 +112,7 @@ public abstract class ProviderBase : IProvider
         }
         writer.WriteEndObject();
         writer.Flush();
-        var bytes = ((MemoryStream)writer.Output).ToArray();
+        var bytes = stream.ToArray();
         return System.Text.Encoding.UTF8.GetString(bytes);
     }
 

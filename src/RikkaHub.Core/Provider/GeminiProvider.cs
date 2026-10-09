@@ -158,7 +158,8 @@ public class GeminiProvider : ProviderBase
 
     public static string BuildGeminiBody(List<UIMessage> messages, TextGenerationParams p)
     {
-        using var writer = new Utf8JsonWriter(new MemoryStream());
+        using var stream = new MemoryStream();
+        using var writer = new Utf8JsonWriter(stream);
         writer.WriteStartObject();
         writer.WriteString("model", p.Model.ModelId);
         if (p.Temperature is { } temp) writer.WriteNumber("temperature", temp);
@@ -282,6 +283,6 @@ public class GeminiProvider : ProviderBase
         writer.WriteEndArray(); // contents
         writer.WriteEndObject();
         writer.Flush();
-        return Encoding.UTF8.GetString(((MemoryStream)writer.Output).ToArray());
+        return Encoding.UTF8.GetString(stream.ToArray());
     }
 }
