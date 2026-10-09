@@ -34,11 +34,11 @@ public class HistoryPage : Page
     {
         var root = new Grid();
         root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(56) });
-        root.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-        root.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+        root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(0, GridUnitType.Auto) });
+        root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
         var topBar = new Grid();
-        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         var back = new Button { Content = new FontIcon { Glyph = "\uE72B", FontSize = 16 }, Background = null };
         back.Click += (s, e) => Frame.GoBack();
@@ -102,7 +102,7 @@ public class HistoryPage : Page
             var item = new ListViewItem { HorizontalContentAlignment = HorizontalAlignment.Stretch };
             var grid = new Grid { Padding = new Thickness(16, 10, 8, 10) };
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
             var info = new StackPanel();
             var titleRow = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 6 };
             if (meta.Pinned)

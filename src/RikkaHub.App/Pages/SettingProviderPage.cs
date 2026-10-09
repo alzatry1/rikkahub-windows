@@ -26,13 +26,13 @@ public class SettingProviderPage : Page
     {
         var root = new Grid();
         root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(56) });
-        root.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+        root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
         // top bar with back
         var topBar = new Grid();
-        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         var back = new Button { Content = new FontIcon { Glyph = "\uE72B", FontSize = 16 }, Background = null };
         back.Click += (s, e) => Frame.GoBack();
         Grid.SetColumn(back, 0);
@@ -79,9 +79,9 @@ public class SettingProviderPage : Page
                 CornerRadius = new Microsoft.UI.Xaml.CornerRadius(16),
                 Background = new SolidColorBrush(M3Theme.Current.SurfaceContainer),
             };
-            card.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            card.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
             card.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            card.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            card.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
 
             var info = new StackPanel { VerticalAlignment = VerticalAlignment.Center };
             var name = new TextBlock { Text = p.Name, FontSize = 15, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold };

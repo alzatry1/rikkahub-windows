@@ -46,13 +46,13 @@ public class SettingProviderDetailPage : Page
     {
         var root = new Grid();
         root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(56) });
-        root.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+        root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
         // top bar
         var topBar = new Grid();
-        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         var back = new Button { Content = new FontIcon { Glyph = "\uE72B", FontSize = 16 }, Background = null };
         back.Click += (s, e) => Frame.GoBack();
         Grid.SetColumn(back, 0);
@@ -117,8 +117,8 @@ public class SettingProviderDetailPage : Page
         var modelsPanel = new StackPanel { Spacing = 8 };
         var modelsHeader = new Grid();
         modelsHeader.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-        modelsHeader.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-        modelsHeader.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        modelsHeader.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
+        modelsHeader.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         var modelsTitle = new TextBlock { Text = Loc.Tr("models"), FontSize = 16, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold };
         modelsTitle.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
         Grid.SetColumn(modelsTitle, 0);
@@ -217,8 +217,8 @@ public class SettingProviderDetailPage : Page
                 Background = new SolidColorBrush(M3Theme.Current.SurfaceContainerHigh),
             };
             row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            row.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            row.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
+            row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
             var info = new StackPanel();
             var name = new TextBlock { Text = string.IsNullOrEmpty(m.DisplayName) ? m.ModelId : m.DisplayName, FontSize = 14, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold };
             name.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");

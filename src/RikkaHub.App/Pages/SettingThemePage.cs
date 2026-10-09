@@ -27,10 +27,10 @@ public class SettingThemePage : Page
     {
         var root = new Grid();
         root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(56) });
-        root.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+        root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
         var topBar = new Grid();
-        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         var back = new Button { Content = new FontIcon { Glyph = "\uE72B", FontSize = 16 }, Background = null };
         back.Click += (s, e) => Frame.GoBack();
         Grid.SetColumn(back, 0);
@@ -75,7 +75,7 @@ public class SettingThemePage : Page
         var dynPanel = new StackPanel { Spacing = 12 };
         var dynRow = new Grid();
         dynRow.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-        dynRow.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        dynRow.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         var dynText = new StackPanel();
         dynText.Children.Add(new TextBlock { Text = Loc.Tr("dynamic_color"), FontSize = 15, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold });
         dynText.Children.Add(new TextBlock { Text = Loc.Tr("seed_color"), FontSize = 12, Opacity = 0.6 });
@@ -175,20 +175,9 @@ public class SettingThemePage : Page
         {
             "dark" => true,
             "light" => false,
-            _ => IsSystemDark(),
+            _ => Content is FrameworkElement fe && fe.ActualTheme == ApplicationTheme.Dark,
         };
         M3Theme.Apply((App)Application.Current, _ctx.Settings.SeedColor, dark);
-    }
-
-    private static bool IsSystemDark()
-    {
-        try
-        {
-            var uiSettings = new Windows.UI.ViewManagement.UISettings();
-            var fg = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIElementType.ForegroundColor);
-            return (fg.R + fg.G + fg.B) > 300;
-        }
-        catch { return false; }
     }
 
     private static bool TryParseColor(string text, out int argb)

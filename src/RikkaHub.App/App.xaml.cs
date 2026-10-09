@@ -38,30 +38,18 @@ public partial class App : Application
 
     protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
-        // Apply persisted theme before creating UI
         var store = new Core.Data.DataStore();
         var settings = store.LoadSettings();
+
+        _window = new MainWindow(store, settings);
         var dark = settings.DarkMode switch
         {
             "dark" => true,
             "light" => false,
-            _ => IsSystemDark(),
+            _ => _window.Content is FrameworkElement fe && fe.ActualTheme == ApplicationTheme.Dark,
         };
         M3Theme.Apply(this, settings.SeedColor, dark);
 
-        _window = new MainWindow(store, settings);
         _window.Activate();
-    }
-
-    private static bool IsSystemDark()
-    {
-        try
-        {
-            var uiSettings = new Windows.UI.ViewManagement.UISettings();
-            var fg = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIElementType.ForegroundColor);
-            // heuristic: dark theme has light foreground text
-            return (fg.R + fg.G + fg.B) > 300;
-        }
-        catch { return false; }
     }
 }

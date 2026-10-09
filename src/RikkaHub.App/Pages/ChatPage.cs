@@ -45,17 +45,17 @@ public class ChatPage : Page
     private void BuildUi()
     {
         _root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(56) });   // top bar
-        _root.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });      // messages
-        _root.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });      // attachments
-        _root.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });      // input bar
+        _root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });      // messages
+        _root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(0, GridUnitType.Auto) });      // attachments
+        _root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(0, GridUnitType.Auto) });      // input bar
         _root.Background = new SolidColorBrush(M3Theme.Current.Background);
 
         // ===== top bar =====
         var topBar = new Grid();
-        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
+        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
 
         _convTitle.VerticalAlignment = VerticalAlignment.Center;
         _convTitle.FontSize = 16;
@@ -110,9 +110,9 @@ public class ChatPage : Page
 
         // ===== input bar =====
         var inputGrid = new Grid();
-        inputGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-        inputGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
-        inputGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        inputGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
+        inputGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        inputGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         inputGrid.Padding = new Thickness(12, 8, 12, 12);
 
         var attachBtn = new Button
@@ -447,8 +447,8 @@ public class ChatPage : Page
                 foreach (var m in providerModels)
                 {
                     var itemPanel = new Grid { Padding = new Thickness(12, 8, 12, 8) };
-                    itemPanel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
-                    itemPanel.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                    itemPanel.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                    itemPanel.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
                     var name = new StackPanel();
                     var nameText = new TextBlock { Text = m.DisplayName, FontSize = 14, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold };
                     var idText = new TextBlock { Text = m.ModelId, FontSize = 11, Opacity = 0.6 };

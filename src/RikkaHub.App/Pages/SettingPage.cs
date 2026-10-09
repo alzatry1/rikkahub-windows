@@ -56,9 +56,9 @@ public class SettingPage : Page
             CornerRadius = new Microsoft.UI.Xaml.CornerRadius(24),
             Margin = new Thickness(0, 2),
         };
-        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         var icon = new FontIcon { Glyph = glyph, FontSize = 18 };
         Grid.SetColumn(icon, 0);
         grid.Children.Add(icon);

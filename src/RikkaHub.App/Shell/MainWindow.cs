@@ -92,7 +92,7 @@ public class MainWindow : Window
 
         var root = new Grid();
         root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(48) });
-        root.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+        root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
         Grid.SetRow(_titleBar, 0);
         Grid.SetRow(_nav, 1);
         root.Children.Add(_titleBar);
@@ -147,7 +147,7 @@ public class TitleBar : Grid
 
     public TitleBar(Window window)
     {
-        ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
+        ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
         _title.VerticalAlignment = VerticalAlignment.Center;
         _title.Margin = new Thickness(16, 0, 0, 0);

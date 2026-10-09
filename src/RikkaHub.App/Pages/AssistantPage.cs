@@ -25,12 +25,12 @@ public class AssistantPage : Page
     {
         var root = new Grid();
         root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(56) });
-        root.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+        root.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
         var topBar = new Grid();
-        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         var back = new Button { Content = new FontIcon { Glyph = "\uE72B", FontSize = 16 }, Background = null };
         back.Click += (s, e) => Frame.GoBack();
         Grid.SetColumn(back, 0);
@@ -77,9 +77,9 @@ public class AssistantPage : Page
                 CornerRadius = new Microsoft.UI.Xaml.CornerRadius(16),
                 Background = new SolidColorBrush(M3Theme.Current.SurfaceContainer),
             };
-            card.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            card.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
             card.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            card.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            card.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
 
             var emoji = new TextBlock { Text = string.IsNullOrEmpty(a.Icon) ? "🤖" : a.Icon, FontSize = 24 };
             Grid.SetColumn(emoji, 0);
