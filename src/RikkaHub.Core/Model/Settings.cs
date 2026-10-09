@@ -9,7 +9,7 @@ public class Settings
     public bool Init { get; set; } = false;
     public bool DynamicColor { get; set; } = true;
     /// <summary>Theme seed color (argb int) for dynamic color generation.</summary>
-    public int SeedColor { get; set; } = 0xFF6750A4;
+    public int SeedColor { get; set; } = unchecked((int)0xFF6750A4);
     /// <summary>dark / light / auto.</summary>
     public string DarkMode { get; set; } = "auto";
     public string ThemeId { get; set; } = "green_tangerine";
@@ -75,7 +75,7 @@ public class CustomTheme
 {
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public string Name { get; set; } = "Custom";
-    public int SeedColor { get; set; } = 0xFF6750A4;
+    public int SeedColor { get; set; } = unchecked((int)0xFF6750A4);
 }
 
 public class QuickMessage

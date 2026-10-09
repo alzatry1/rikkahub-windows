@@ -113,7 +113,7 @@ public class M3Palette
 /// <summary>Applies an M3 palette into XAML resources + WinUI accent overrides.</summary>
 public static class M3Theme
 {
-    public static M3Palette Current { get; private set; } = M3Palette.FromSeed(0xFF6750A4, false);
+    public static M3Palette Current { get; private set; } = M3Palette.FromSeed(unchecked((int)0xFF6750A4), false);
 
     public static event Action<M3Palette>? Changed;
 

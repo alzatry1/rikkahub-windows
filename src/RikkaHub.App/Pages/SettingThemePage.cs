@@ -118,7 +118,7 @@ public class SettingThemePage : Page
         var presetPanel = new StackPanel { Spacing = 8 };
         presetPanel.Children.Add(new TextBlock { Text = "Preset Seeds", FontSize = 15, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold });
         var presetRow = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
-        int[] seeds = { 0xFF6750A4, 0xFF0061A4, 0xFF006E2C, 0xFFB3261E, 0xFF7D5260, 0xFF795548, 0xFF00696E, 0xFF6D4E2F };
+        int[] seeds = { unchecked((int)0xFF6750A4), unchecked((int)0xFF0061A4), unchecked((int)0xFF006E2C), unchecked((int)0xFFB3261E), unchecked((int)0xFF7D5260), unchecked((int)0xFF795548), unchecked((int)0xFF00696E), unchecked((int)0xFF6D4E2F) };
         foreach (var seed in seeds)
         {
             var s = seed;
