@@ -36,8 +36,9 @@
 
 **云端构建**：本仓库所有编译均在 GitHub Actions（`windows-latest`）上完成，本地不进行任何编译。
 
-1. 到 [Actions](https://github.com/alzatry1/rikkahub-windows/actions) 下载最新 `RikkaHub-Windows-x64` 产物
-2. 或到 [Releases](https://github.com/alzatry1/rikkahub-windows/releases) 下载 `RikkaHub-Setup-x64.exe` 安装包
+1. ⬇️ **直接下载安装包**：[RikkaHub-Setup-x64.exe (v1.0.0)](https://github.com/alzatry1/rikkahub-windows/releases/download/v1.0.0/RikkaHub-Setup-x64.exe)
+2. 到 [Releases](https://github.com/alzatry1/rikkahub-windows/releases) 页面获取各版本
+3. 或到 [Actions](https://github.com/alzatry1/rikkahub-windows/actions) 下载最新构建产物 `RikkaHub-Windows-x64`
 
 系统要求：Windows 10 2004 (19041) 及以上 / Windows 11，x64。安装包为自包含部署，无需预装 .NET 运行时。
 
