@@ -47,7 +47,7 @@ public class Settings
     public bool WebServerEnabled { get; set; } = false;
     public int WebServerPort { get; set; } = 8080;
 
-    public Model? FindChatModel(ProviderManager pm)
+    public Provider.Model? FindChatModel(ProviderManager pm)
     {
         var hit = pm.FindModel(Providers, ChatModelId);
         return hit?.Model;
