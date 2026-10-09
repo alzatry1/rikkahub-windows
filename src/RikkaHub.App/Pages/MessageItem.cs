@@ -55,7 +55,7 @@ public class MessageItem : UserControl
         _userText.FontSize = 14;
         _userText.Foreground = new SolidColorBrush(M3Theme.Current.OnPrimaryContainer);
         _userText.IsTextSelectionEnabled = true;
-        _userBubble.Child = _userText;
+        _userBubble.Children.Add(_userText);
 
         // assistant layout
         var assistantRow = new StackPanel { Orientation = Orientation.Vertical, Spacing = 4 };
@@ -90,7 +90,7 @@ public class MessageItem : UserControl
         _errorText.FontSize = 13;
         _errorText.TextWrapping = TextWrapping.Wrap;
         _errorText.Foreground = new SolidColorBrush(M3Theme.Current.OnErrorContainer);
-        _errorCard.Child = _errorText;
+        _errorCard.Children.Add(_errorText);
 
         // footer + actions
         _footer.FontSize = 11;
