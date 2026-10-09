@@ -15,7 +15,6 @@ namespace RikkaHub.App.Pages;
 /// </summary>
 public class ChatPage : Page
 {
-    private readonly AppCtx _ctx;
     private readonly Grid _root = new();
     private readonly StackPanel _messageStack = new();
     private readonly ScrollViewer _scroller = new();
