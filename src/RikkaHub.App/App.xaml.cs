@@ -1,5 +1,5 @@
 using RikkaHub.App.Theme;
-using RikkaHub.App.Windows;
+using RikkaHub.App.Shell;
 using Microsoft.UI.Xaml;
 
 namespace RikkaHub.App;

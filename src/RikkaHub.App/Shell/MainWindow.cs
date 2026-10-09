@@ -10,7 +10,7 @@ using RikkaHub.Core.Data;
 using RikkaHub.Core.Model;
 using Windows.Graphics;
 
-namespace RikkaHub.App.Windows;
+namespace RikkaHub.App.Shell;
 
 /// <summary>
 /// Main window — NavigationView shell with Mica backdrop (matches the Android app's
