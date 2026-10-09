@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Dispatching;
 using RikkaHub.App.Theme;
 using Windows.Foundation;
