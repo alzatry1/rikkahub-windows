@@ -442,7 +442,7 @@ public class ChatPage : Page
                     FontSize = 12,
                     FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
                     IsHitTestVisible = false,
-                    SelectsOnInvoked = false,
+                    IsEnabled = false,
                 });
                 foreach (var m in providerModels)
                 {
