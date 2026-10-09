@@ -65,7 +65,7 @@ public class SettingProviderDetailPage : Page
             VerticalAlignment = VerticalAlignment.Center,
             Margin = new Thickness(12, 0, 0, 0),
         };
-        title.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+        title.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
         Grid.SetColumn(title, 1);
         topBar.Children.Add(title);
         Grid.SetRow(topBar, 0);
@@ -120,7 +120,7 @@ public class SettingProviderDetailPage : Page
         modelsHeader.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         modelsHeader.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         var modelsTitle = new TextBlock { Text = Loc.Tr("models"), FontSize = 16, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold };
-        modelsTitle.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+        modelsTitle.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
         Grid.SetColumn(modelsTitle, 0);
         modelsHeader.Children.Add(modelsTitle);
 
@@ -221,7 +221,7 @@ public class SettingProviderDetailPage : Page
             row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
             var info = new StackPanel();
             var name = new TextBlock { Text = string.IsNullOrEmpty(m.DisplayName) ? m.ModelId : m.DisplayName, FontSize = 14, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold };
-            name.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+            name.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
             var id = new TextBlock { Text = m.ModelId, FontSize = 11, Opacity = 0.6 };
             info.Children.Add(name);
             info.Children.Add(id);

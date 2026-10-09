@@ -43,7 +43,7 @@ public class AssistantPage : Page
             VerticalAlignment = VerticalAlignment.Center,
             Margin = new Thickness(12, 0, 0, 0),
         };
-        title.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+        title.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
         Grid.SetColumn(title, 1);
         topBar.Children.Add(title);
 
@@ -87,7 +87,7 @@ public class AssistantPage : Page
 
             var info = new StackPanel { VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(12, 0, 0, 0) };
             var name = new TextBlock { Text = a.Name, FontSize = 15, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold };
-            name.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+            name.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
             info.Children.Add(name);
             if (!string.IsNullOrEmpty(a.Description))
             {

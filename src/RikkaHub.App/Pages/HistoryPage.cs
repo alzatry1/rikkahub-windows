@@ -52,7 +52,7 @@ public class HistoryPage : Page
             VerticalAlignment = VerticalAlignment.Center,
             Margin = new Thickness(12, 0, 0, 0),
         };
-        title.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+        title.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
         Grid.SetColumn(title, 1);
         topBar.Children.Add(title);
         var newBtn = new Button
@@ -116,7 +116,7 @@ public class HistoryPage : Page
                 FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
                 TextTrimming = TextTrimming.CharacterEllipsis,
             };
-            title.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+            title.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
             titleRow.Children.Add(title);
             info.Children.Add(titleRow);
             var time = new TextBlock

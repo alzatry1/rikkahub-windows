@@ -178,7 +178,7 @@ public class ChatPage : Page
             FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
             HorizontalAlignment = HorizontalAlignment.Center,
         };
-        title.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+        title.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
         var hint = new TextBlock
         {
             Text = Loc.Tr("no_models_hint"),

@@ -44,7 +44,7 @@ public class SettingPage : Page
             FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
             Margin = new Thickness(4, 12, 0, 16),
         };
-        h.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+        h.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
         return h;
     }
 
@@ -63,11 +63,11 @@ public class SettingPage : Page
         Grid.SetColumn(icon, 0);
         grid.Children.Add(icon);
         var text = new TextBlock { Text = label, FontSize = 15, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(16, 0, 0, 0) };
-        text.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+        text.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
         Grid.SetColumn(text, 1);
         grid.Children.Add(text);
         var chevron = new FontIcon { Glyph = "\uE76C", FontSize = 14 };
-        chevron.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurfaceVariant");
+        chevron.Foreground = new SolidColorBrush(M3Theme.Current.OnSurfaceVariant);
         Grid.SetColumn(chevron, 2);
         grid.Children.Add(chevron);
 

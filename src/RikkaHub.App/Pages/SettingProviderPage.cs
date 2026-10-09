@@ -45,7 +45,7 @@ public class SettingProviderPage : Page
             VerticalAlignment = VerticalAlignment.Center,
             Margin = new Thickness(12, 0, 0, 0),
         };
-        title.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+        title.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
         Grid.SetColumn(title, 1);
         topBar.Children.Add(title);
 
@@ -85,7 +85,7 @@ public class SettingProviderPage : Page
 
             var info = new StackPanel { VerticalAlignment = VerticalAlignment.Center };
             var name = new TextBlock { Text = p.Name, FontSize = 15, FontWeight = Microsoft.UI.Text.FontWeights.SemiBold };
-            name.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+            name.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
             var desc = new TextBlock
             {
                 Text = p.Models.Count == 0

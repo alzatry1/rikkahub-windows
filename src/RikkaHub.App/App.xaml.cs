@@ -46,7 +46,7 @@ public partial class App : Application
         {
             "dark" => true,
             "light" => false,
-            _ => _window.Content is FrameworkElement fe && fe.ActualTheme == ApplicationTheme.Dark,
+            _ => _window.Content is FrameworkElement fe && fe.ActualTheme == ElementTheme.Dark,
         };
         M3Theme.Apply(this, settings.SeedColor, dark);
 

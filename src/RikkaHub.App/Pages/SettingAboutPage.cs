@@ -36,7 +36,7 @@ public class SettingAboutPage : Page
             VerticalAlignment = VerticalAlignment.Center,
             Margin = new Thickness(12, 0, 0, 0),
         };
-        title.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+        title.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
         Grid.SetColumn(title, 1);
         topBar.Children.Add(title);
         Grid.SetRow(topBar, 0);
@@ -68,7 +68,7 @@ public class SettingAboutPage : Page
             FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
             HorizontalAlignment = HorizontalAlignment.Center,
         };
-        name.SetResourceReference(TextBlock.ForegroundProperty, "M3OnSurface");
+        name.Foreground = new SolidColorBrush(M3Theme.Current.OnSurface);
         panel.Children.Add(name);
 
         panel.Children.Add(MakeRow(Loc.Tr("about_version"), Loc.Tr("version")));
