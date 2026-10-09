@@ -215,7 +215,7 @@ public class ChatVM
 
         var chatModel = _ctx.ChatModel;
         if (chatModel == null) return;
-        var hitNullable = _ctx.Providers.FindModel(_ctx.Settings.Providers, chatModel);
+        var hitNullable = _ctx.Providers.FindModel(_ctx.Settings.Providers, chatModel.Id);
         if (hitNullable == null) return;
         var hit = hitNullable.Value;
         var assistant = new UIMessage

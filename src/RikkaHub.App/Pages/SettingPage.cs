@@ -54,7 +54,7 @@ public class SettingPage : Page
         {
             Padding = new Thickness(16, 12, 16, 12),
             CornerRadius = new Microsoft.UI.Xaml.CornerRadius(24),
-            Margin = new Thickness(0, 2),
+            Margin = new Thickness(0, 2, 0, 0),
         };
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
