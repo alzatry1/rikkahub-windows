@@ -175,7 +175,7 @@ public class SettingThemePage : Page
         {
             "dark" => true,
             "light" => false,
-            _ => Content is FrameworkElement fe && fe.ActualTheme == ApplicationTheme.Dark,
+            _ => Content is FrameworkElement fe && fe.ActualTheme == ElementTheme.Dark,
         };
         M3Theme.Apply((App)Application.Current, _ctx.Settings.SeedColor, dark);
     }
