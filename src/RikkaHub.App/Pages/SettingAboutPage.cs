@@ -53,15 +53,24 @@ public class SettingAboutPage : Page
             MaxWidth = 560,
         };
 
-        // icon
-        var icon = new Image
+        // icon (unpackaged apps can't rely on ms-appx; use file path)
+        var iconPath = System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "icon.png");
+        Microsoft.UI.Xaml.Media.Imaging.BitmapImage? appIcon = null;
+        try
         {
-            Source = new Microsoft.UI.Xaml.Media.Imaging.BitmapImage(new Uri("ms-appx:///Assets/icon.png")),
-            Width = 96,
-            Height = 96,
-            HorizontalAlignment = HorizontalAlignment.Center,
-        };
-        panel.Children.Add(icon);
+            if (System.IO.File.Exists(iconPath)) appIcon = new Microsoft.UI.Xaml.Media.Imaging.BitmapImage(new Uri(iconPath));
+        }
+        catch { }
+        if (appIcon != null)
+        {
+            panel.Children.Add(new Image
+            {
+                Source = appIcon,
+                Width = 96,
+                Height = 96,
+                HorizontalAlignment = HorizontalAlignment.Center,
+            });
+        }
 
         var name = new TextBlock
         {

@@ -39,7 +39,16 @@ public class MainWindow : Window
             presenter.PreferredMinimumHeight = 600;
         }
 
-        SystemBackdrop = new MicaBackdrop();
+        // Backdrop: Mica on Windows 11, Desktop Acrylic fallback on Windows 10
+        if (Environment.OSVersion.Version.Build >= 22000)
+        {
+            SystemBackdrop = new MicaBackdrop();
+        }
+        else
+        {
+            try { SystemBackdrop = new DesktopAcrylicBackdrop(); }
+            catch { /* acrylic unavailable — plain background */ }
+        }
 
         // Custom title bar
         ExtendsContentIntoTitleBar = true;

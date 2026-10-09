@@ -31,6 +31,28 @@ jobs:
       - name: Publish (self-contained win-x64)
         run: dotnet publish src\RikkaHub.App\RikkaHub.App.csproj -c Release -r win-x64 -p:Platform=x64 --self-contained true -o publish
 
+      - name: Smoke test (launch app headless)
+        shell: pwsh
+        run: |
+          $log = "$env:LOCALAPPDATA\RikkaHub\logs\startup.log"
+          Remove-Item -ErrorAction SilentlyContinue -Recurse -Force "$env:LOCALAPPDATA\RikkaHub"
+          $p = Start-Process -FilePath "publish\RikkaHub.exe" -PassThru
+          Start-Sleep -Seconds 12
+          if ($p.HasExited) {
+            Write-Host "=== APP EXITED with code $($p.ExitCode) ==="
+            if (Test-Path $log) { Write-Host "--- startup.log ---"; Get-Content $log }
+            Write-Host "--- Event Log (application errors) ---"
+            Get-WinEvent -LogName Application -MaxEvents 30 |
+              Where-Object { $_.LevelDisplayName -eq 'Error' -and $_.Message -match 'RikkaHub|\.NET' } |
+              Select-Object -First 5 TimeCreated, ProviderName, @{n='Msg';e={$_.Message.Substring(0,[Math]::Min(800,$_.Message.Length))}} |
+              Format-List
+            exit 1
+          } else {
+            Write-Host "=== APP RUNNING OK (PID $($p.Id)) ==="
+            if (Test-Path $log) { Write-Host "--- startup.log ---"; Get-Content $log }
+            Stop-Process -Id $p.Id -Force
+          }
+
       - name: Setup Inno Setup
         run: choco install innosetup --no-progress -y
         if: runner.os == 'Windows'
