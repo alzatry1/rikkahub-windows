@@ -52,9 +52,15 @@ public class ClaudeProvider : ProviderBase
         req.Headers.Add("anthropic-version", string.IsNullOrWhiteSpace(s.Version) ? "2023-06-01" : s.Version);
         ApplyCustomHeaders(req, s, p);
 
-        HttpResponseMessage resp;
+        HttpResponseMessage? resp = null;
+        Exception? sendError = null;
         try { resp = await Http.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, ct); }
-        catch (Exception e) { yield return new ErrorChunk { Error = e.Message, IsStream = false }; yield break; }
+        catch (Exception e) { sendError = e; }
+        if (sendError != null || resp == null)
+        {
+            yield return new ErrorChunk { Error = sendError?.Message ?? "request failed", IsStream = false };
+            yield break;
+        }
         using (resp)
         {
             if (!resp.IsSuccessStatusCode)
