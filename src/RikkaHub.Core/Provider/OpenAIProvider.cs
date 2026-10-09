@@ -204,8 +204,8 @@ public class OpenAIProvider : ProviderBase
     /// <summary>Build chat/completions request body from UI messages.</summary>
     public static string BuildChatCompletionsBody(OpenAISetting s, List<UIMessage> messages, TextGenerationParams p, bool stream)
     {
-        using var stream = new MemoryStream();
-        using var writer = new Utf8JsonWriter(stream, new JsonWriterOptions { Indented = false });
+        using var ms = new MemoryStream();
+        using var writer = new Utf8JsonWriter(ms, new JsonWriterOptions { Indented = false });
         writer.WriteStartObject();
         writer.WriteString("model", p.Model.ModelId);
         if (p.Temperature is { } temp) writer.WriteNumber("temperature", temp);
@@ -338,7 +338,7 @@ public class OpenAIProvider : ProviderBase
         writer.WriteEndArray(); // messages
         writer.WriteEndObject();
         writer.Flush();
-        var json = Encoding.UTF8.GetString(stream.ToArray());
+        var json = Encoding.UTF8.GetString(ms.ToArray());
         return MergeCustomBody(json, s.CustomBodies(p));
     }
 }
