@@ -324,7 +324,7 @@ public class ChatPage : Page
             var r = await dlg.ShowAsync();
             if (r == ContentDialogResult.Primary)
             {
-                App.App.Current.MainWindow?.Navigate("settings");
+                global::RikkaHub.App.App.Current.MainWindow?.Navigate("settings");
             }
             return;
         }
@@ -344,7 +344,7 @@ public class ChatPage : Page
         picker.FileTypeFilter.Add(".webp");
         picker.FileTypeFilter.Add(".gif");
         picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
-        WinRT.Interop.InitializeWithWindow.Initialize(picker, App.App.Current.WindowHandle);
+        WinRT.Interop.InitializeWithWindow.Initialize(picker, global::RikkaHub.App.App.Current.WindowHandle);
         var files = await picker.PickMultipleFilesAsync();
         foreach (var file in files)
         {
