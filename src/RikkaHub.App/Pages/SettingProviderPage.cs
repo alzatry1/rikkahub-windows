@@ -14,10 +14,9 @@ public class SettingProviderPage : Page
     private readonly StackPanel _list = new();
     private readonly TextBlock _balance = new();
 
-    protected override void OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
+    public SettingProviderPage(AppCtx ctx)
     {
-        base.OnNavigatedTo(e);
-        _ctx = (AppCtx)e.Parameter;
+        _ctx = ctx;
         Build();
         Rebind();
     }
@@ -34,7 +33,7 @@ public class SettingProviderPage : Page
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         var back = new Button { Content = new FontIcon { Glyph = "\uE72B", FontSize = 16 }, Background = null };
-        back.Click += (s, e) => Frame.GoBack();
+        back.Click += (s, e) => global::RikkaHub.App.App.Current.MainWindow?.GoBack();
         Grid.SetColumn(back, 0);
         topBar.Children.Add(back);
         var title = new TextBlock
@@ -129,7 +128,7 @@ public class SettingProviderPage : Page
                 Background = null,
                 Padding = new Thickness(0),
             };
-            btn.Click += (s, e) => Frame.Navigate(typeof(SettingProviderDetailPage), (_ctx, p.Id));
+            btn.Click += (s, e) => global::RikkaHub.App.App.Current.MainWindow?.OpenProviderDetail(p.Id);
             _list.Children.Add(btn);
         }
     }

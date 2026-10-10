@@ -11,10 +11,9 @@ public class SettingPage : Page
 {
     private AppCtx _ctx = null!;
 
-    protected override void OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
+    public SettingPage(AppCtx ctx)
     {
-        base.OnNavigatedTo(e);
-        _ctx = (AppCtx)e.Parameter;
+        _ctx = ctx;
         Build();
     }
 
@@ -25,11 +24,11 @@ public class SettingPage : Page
 
         panel.Children.Add(MakeHeader(Loc.Tr("settings")));
 
-        panel.Children.Add(MakeSectionItem("\uF121", Loc.Tr("providers"), () => Frame.Navigate(typeof(SettingProviderPage), _ctx)));
-        panel.Children.Add(MakeSectionItem("\uE790", Loc.Tr("theme"), () => Frame.Navigate(typeof(SettingThemePage), _ctx)));
-        panel.Children.Add(MakeSectionItem("\uE779", Loc.Tr("assistants"), () => Frame.Navigate(typeof(AssistantPage), _ctx)));
-        panel.Children.Add(MakeSectionItem("\uE713", Loc.Tr("other_settings"), () => Frame.Navigate(typeof(SettingOtherPage), _ctx)));
-        panel.Children.Add(MakeSectionItem("\uE946", Loc.Tr("about"), () => Frame.Navigate(typeof(SettingAboutPage), _ctx)));
+        panel.Children.Add(MakeSectionItem("\uF121", Loc.Tr("providers"), () => global::RikkaHub.App.App.Current.MainWindow?.Navigate("providers")));
+        panel.Children.Add(MakeSectionItem("\uE790", Loc.Tr("theme"), () => global::RikkaHub.App.App.Current.MainWindow?.Navigate("theme")));
+        panel.Children.Add(MakeSectionItem("\uE779", Loc.Tr("assistants"), () => global::RikkaHub.App.App.Current.MainWindow?.Navigate("assistants")));
+        panel.Children.Add(MakeSectionItem("\uE713", Loc.Tr("other_settings"), () => global::RikkaHub.App.App.Current.MainWindow?.Navigate("other")));
+        panel.Children.Add(MakeSectionItem("\uE946", Loc.Tr("about"), () => global::RikkaHub.App.App.Current.MainWindow?.Navigate("about")));
 
         scroll.Content = panel;
         Content = scroll;

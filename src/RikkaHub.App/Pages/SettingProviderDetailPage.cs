@@ -20,10 +20,10 @@ public class SettingProviderDetailPage : Page
     private readonly ProgressRing _fetching = new() { IsActive = false, Width = 20, Height = 20 };
     private readonly TextBlock _fetchStatus = new();
 
-    protected override void OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
+    public SettingProviderDetailPage(AppCtx ctx, Guid providerId)
     {
-        base.OnNavigatedTo(e);
-        (_ctx, _providerId) = ((AppCtx, Guid))e.Parameter;
+        _ctx = ctx;
+        _providerId = providerId;
         Build();
         Rebind();
     }
@@ -54,7 +54,7 @@ public class SettingProviderDetailPage : Page
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         var back = new Button { Content = new FontIcon { Glyph = "\uE72B", FontSize = 16 }, Background = null };
-        back.Click += (s, e) => Frame.GoBack();
+        back.Click += (s, e) => global::RikkaHub.App.App.Current.MainWindow?.GoBack();
         Grid.SetColumn(back, 0);
         topBar.Children.Add(back);
         var title = new TextBlock
@@ -166,7 +166,7 @@ public class SettingProviderDetailPage : Page
             {
                 _ctx.Settings.Providers.Remove(provider);
                 _ctx.SaveSettings();
-                Frame.GoBack();
+                global::RikkaHub.App.App.Current.MainWindow?.GoBack();
             }
         };
         deleteBtn.Background = new SolidColorBrush(M3Theme.Current.ErrorContainer);
@@ -188,7 +188,7 @@ public class SettingProviderDetailPage : Page
     private void Rebind()
     {
         var provider = Provider;
-        if (provider == null) { Frame.GoBack(); return; }
+        if (provider == null) { global::RikkaHub.App.App.Current.MainWindow?.GoBack(); return; }
         _nameBox.Text = provider.Name;
         if (provider is ICredentialSetting c)
         {

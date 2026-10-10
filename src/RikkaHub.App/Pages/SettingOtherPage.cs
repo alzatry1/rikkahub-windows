@@ -11,10 +11,9 @@ public class SettingOtherPage : Page
 {
     private AppCtx _ctx = null!;
 
-    protected override void OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
+    public SettingOtherPage(AppCtx ctx)
     {
-        base.OnNavigatedTo(e);
-        _ctx = (AppCtx)e.Parameter;
+        _ctx = ctx;
         Build();
     }
 
@@ -27,7 +26,7 @@ public class SettingOtherPage : Page
         var topBar = new Grid();
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         var back = new Button { Content = new FontIcon { Glyph = "\uE72B", FontSize = 16 }, Background = null };
-        back.Click += (s, e) => Frame.GoBack();
+        back.Click += (s, e) => global::RikkaHub.App.App.Current.MainWindow?.GoBack();
         Grid.SetColumn(back, 0);
         topBar.Children.Add(back);
         var title = new TextBlock

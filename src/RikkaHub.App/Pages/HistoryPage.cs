@@ -13,19 +13,12 @@ public class HistoryPage : Page
     private readonly ListView _list = new();
     private readonly TextBox _search = new();
 
-    protected override void OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
+    public HistoryPage(AppCtx ctx)
     {
-        base.OnNavigatedTo(e);
-        _ctx = (AppCtx)e.Parameter;
+        _ctx = ctx;
         _ctx.ConversationListChanged += OnListChanged;
         Build();
         Rebind();
-    }
-
-    protected override void OnNavigatedFrom(Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
-    {
-        base.OnNavigatedFrom(e);
-        _ctx.ConversationListChanged -= OnListChanged;
     }
 
     private void OnListChanged() => DispatcherQueue.TryEnqueue(Rebind);
@@ -41,7 +34,7 @@ public class HistoryPage : Page
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         var back = new Button { Content = new FontIcon { Glyph = "\uE72B", FontSize = 16 }, Background = null };
-        back.Click += (s, e) => Frame.GoBack();
+        back.Click += (s, e) => global::RikkaHub.App.App.Current.MainWindow?.GoBack();
         Grid.SetColumn(back, 0);
         topBar.Children.Add(back);
         var title = new TextBlock
@@ -62,7 +55,7 @@ public class HistoryPage : Page
         newBtn.Click += (s, e) =>
         {
             _ctx.NewConversation();
-            Frame.GoBack();
+            global::RikkaHub.App.App.Current.MainWindow?.GoBack();
         };
         Grid.SetColumn(newBtn, 2);
         topBar.Children.Add(newBtn);
@@ -82,7 +75,7 @@ public class HistoryPage : Page
             if (_list.SelectedItem is ListViewItem { Tag: Guid id })
             {
                 _ctx.OpenConversation(id);
-                Frame.GoBack();
+                global::RikkaHub.App.App.Current.MainWindow?.GoBack();
                 _list.SelectedItem = null;
             }
         };

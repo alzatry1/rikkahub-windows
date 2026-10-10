@@ -13,10 +13,9 @@ public class AssistantPage : Page
     private AppCtx _ctx = null!;
     private readonly StackPanel _list = new();
 
-    protected override void OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
+    public AssistantPage(AppCtx ctx)
     {
-        base.OnNavigatedTo(e);
-        _ctx = (AppCtx)e.Parameter;
+        _ctx = ctx;
         Build();
         Rebind();
     }
@@ -32,7 +31,7 @@ public class AssistantPage : Page
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         topBar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Auto) });
         var back = new Button { Content = new FontIcon { Glyph = "\uE72B", FontSize = 16 }, Background = null };
-        back.Click += (s, e) => Frame.GoBack();
+        back.Click += (s, e) => global::RikkaHub.App.App.Current.MainWindow?.GoBack();
         Grid.SetColumn(back, 0);
         topBar.Children.Add(back);
         var title = new TextBlock
@@ -107,7 +106,7 @@ public class AssistantPage : Page
                     _ctx.Conversation.Config.AssistantId = a.Id;
                 _ctx.SaveSettings();
                 _ctx.SaveCurrentConversation();
-                Frame.GoBack();
+                global::RikkaHub.App.App.Current.MainWindow?.GoBack();
             };
             actions.Children.Add(useBtn);
             Grid.SetColumn(actions, 2);

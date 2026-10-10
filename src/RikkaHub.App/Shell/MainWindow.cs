@@ -19,8 +19,10 @@ namespace RikkaHub.App.Shell;
 public class MainWindow : Window
 {
     private readonly AppCtx _ctx;
-    private readonly Frame _frame = new();
+    private readonly ContentControl _host = new();
     private readonly NavigationView _nav;
+    private readonly Dictionary<string, Page> _pageCache = new();
+    private readonly List<string> _navStack = new();
     private TitleBar? _titleBar;
 
     public MainWindow(DataStore store, Settings settings)
@@ -64,7 +66,7 @@ public class MainWindow : Window
             OpenPaneLength = 280,
             PaneDisplayMode = NavigationViewPaneDisplayMode.Left,
             IsTitleBarAutoPaddingEnabled = false,
-            Content = _frame,
+            Content = _host,
         };
 
         _nav.MenuItems.Add(new NavigationViewItem
@@ -142,30 +144,82 @@ public class MainWindow : Window
 
     private static FontIcon MakeIcon(char glyph) => new() { Glyph = char.ToString(glyph) };
 
+    /// <summary>
+    /// Navigation without Frame: code-built pages + Frame.Navigate(Type, object)
+    /// crashed deterministically (AccessViolationException in CsWinRT marshaling),
+    /// so pages are instantiated directly and hosted in a ContentControl.
+    /// Page instances are cached per tag; sub-pages (e.g. provider detail) are not.
+    /// </summary>
     public void Navigate(string tag)
     {
-        switch (tag)
+        try
         {
-            case "settings":
-                _frame.Navigate(typeof(SettingPage), _ctx);
-                break;
-            case "assistants":
-                _frame.Navigate(typeof(AssistantPage), _ctx);
-                break;
-            case "history":
-                _frame.Navigate(typeof(HistoryPage), _ctx);
-                break;
-            default:
-                _frame.Navigate(typeof(ChatPage), _ctx);
-                break;
+            if (!_pageCache.TryGetValue(tag, out var page))
+            {
+                page = tag switch
+                {
+                    "settings" => new SettingPage(_ctx),
+                    "assistants" => new AssistantPage(_ctx),
+                    "history" => new HistoryPage(_ctx),
+                    "providers" => new SettingProviderPage(_ctx),
+                    "theme" => new SettingThemePage(_ctx),
+                    "other" => new SettingOtherPage(_ctx),
+                    "about" => new SettingAboutPage(_ctx),
+                    _ => new ChatPage(_ctx),
+                };
+                _pageCache[tag] = page;
+            }
+            _host.Content = page;
+            if (_navStack.LastOrDefault() != tag)
+            {
+                _navStack.Add(tag);
+                if (_navStack.Count > 32) _navStack.RemoveAt(0);
+            }
+            // keep the nav rail selection in sync
+            var item = _nav.MenuItems.Concat(_nav.FooterMenuItems)
+                .OfType<NavigationViewItem>()
+                .FirstOrDefault(i => (i.Tag as string) == NavRootOf(tag));
+            if (item != null && !ReferenceEquals(_nav.SelectedItem, item)) _nav.SelectedItem = item;
+
+            _titleBar?.SetTitle(tag switch
+            {
+                "settings" => Loc.Tr("settings"),
+                "assistants" => Loc.Tr("assistants"),
+                "history" => Loc.Tr("history"),
+                "providers" => Loc.Tr("providers"),
+                "providerDetail" => Loc.Tr("edit_provider"),
+                _ => Loc.Tr("app_name"),
+            });
         }
-        _titleBar?.SetTitle(tag switch
+        catch (Exception ex)
         {
-            "settings" => Loc.Tr("settings"),
-            "assistants" => Loc.Tr("assistants"),
-            "history" => Loc.Tr("history"),
-            _ => Loc.Tr("app_name"),
-        });
+            global::RikkaHub.App.App.StartupLog($"FATAL (navigate {tag}): {ex}");
+        }
+    }
+
+    /// <summary>Open a provider detail sub-page (not cached).</summary>
+    public void OpenProviderDetail(Guid providerId)
+    {
+        _host.Content = new SettingProviderDetailPage(_ctx, providerId);
+        if (_navStack.LastOrDefault() != "providerDetail") _navStack.Add("providerDetail");
+        _titleBar?.SetTitle(Loc.Tr("edit_provider"));
+    }
+
+    private static string NavRootOf(string tag) => tag switch
+    {
+        "providers" or "providerDetail" or "theme" or "other" or "about" => "settings",
+        _ => tag,
+    };
+
+    /// <summary>Go back to the previous entry in the navigation stack.</summary>
+    public void GoBack()
+    {
+        // pop current
+        if (_navStack.Count > 0) _navStack.RemoveAt(_navStack.Count - 1);
+        var target = _navStack.LastOrDefault() ?? "chat";
+        // re-enter without pushing a new entry
+        if (_navStack.LastOrDefault() != target) _navStack.Add(target);
+        Navigate(target);
     }
 }
 

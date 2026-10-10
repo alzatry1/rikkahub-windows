@@ -32,10 +32,9 @@ public class ChatPage : Page
 
     private AppCtx Ctx => _ctxRef ?? throw new InvalidOperationException("ChatPage navigated without context");
 
-    protected override void OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
+    public ChatPage(AppCtx ctx)
     {
-        base.OnNavigatedTo(e);
-        _ctxRef = e.Parameter as AppCtx ?? throw new InvalidOperationException("ChatPage requires AppCtx parameter");
+        _ctxRef = ctx;
         BuildUi();
         HookEvents();
         RebindAll();
