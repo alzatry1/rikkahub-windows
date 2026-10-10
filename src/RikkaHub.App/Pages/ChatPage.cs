@@ -251,7 +251,7 @@ public class ChatPage : Page
         var generating = Ctx.Chat.IsGenerating;
         ((FontIcon)_sendBtn.Content).Glyph = generating ? "\uE715" : "\uE724"; // pause vs send
         _sendBtn.IsEnabled = generating || !string.IsNullOrWhiteSpace(_input.Text) || _attachments.Count > 0;
-        if (!generating) _input.Focus(FocusState.Programmatic);
+        if (!generating && IsLoaded) _input.Focus(FocusState.Programmatic);
     }
 
     private void RebindAll()

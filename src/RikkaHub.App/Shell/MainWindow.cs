@@ -117,8 +117,28 @@ public class MainWindow : Window
         });
         root.Background = new SolidColorBrush(M3Theme.Current.Background);
 
-        Navigate("chat");
+        // NOTE: initial navigation is deferred to the Activated event — calling
+        // Frame.Navigate() from the window constructor crashes the XAML runtime
+        // (AccessViolationException in IFrameMethods.Navigate) because content
+        // is not loaded yet. This was the v1.0.0 startup crash.
+        Activated += (s, e) =>
+        {
+            if (!_initialNavigated)
+            {
+                _initialNavigated = true;
+                try
+                {
+                    Navigate("chat");
+                }
+                catch (Exception ex)
+                {
+                    global::RikkaHub.App.App.StartupLog($"FATAL (initial navigate): {ex}");
+                }
+            }
+        };
     }
+
+    private bool _initialNavigated;
 
     private static FontIcon MakeIcon(char glyph) => new() { Glyph = char.ToString(glyph) };
 
